@@ -1,0 +1,202 @@
+services:
+  router-1:
+    image: tarantool/tarantool:latest
+    networks:
+      - tarantool-net
+    ports:
+      - "3301:3301"
+    volumes:
+#      - ./config:/opt/tarantool/config  # Конфигурация
+      - ./data:/var/lib/tarantool  # Данные (WAL, snapshots)
+      - ./instances.enabled/cluster:/opt/tarantool
+    working_dir: /opt/tarantool
+    cap_add:
+      - SYS_ADMIN
+    environment:
+      - TT_INSTANCE_NAME=router-1
+      - TT_CONFIG=/opt/tarantool/config.yml  # Путь к конфигурации
+      - TARANTOOL_LOG_LEVEL=4  # INFO уровень логирования
+  router-2:
+    image: tarantool/tarantool:latest
+    networks:
+      - tarantool-net
+    ports:
+      - "3302:3301"
+    volumes:
+#      - ./config:/opt/tarantool/config  # Конфигурация
+      - ./data:/var/lib/tarantool  # Данные (WAL, snapshots)
+      - ./instances.enabled/cluster:/opt/tarantool
+    working_dir: /opt/tarantool
+    cap_add:
+      - SYS_ADMIN
+    environment:
+      - TT_INSTANCE_NAME=router-2
+      - TT_CONFIG=/opt/tarantool/config.yml  # Путь к конфигурации
+      - TARANTOOL_LOG_LEVEL=4  # INFO уровень логирования
+  router-3:
+    image: tarantool/tarantool:latest
+    networks:
+      - tarantool-net
+    ports:
+      - "3303:3301"
+    volumes:
+#      - ./config:/opt/tarantool/config  # Конфигурация
+      - ./data:/var/lib/tarantool  # Данные (WAL, snapshots)
+      - ./instances.enabled/cluster:/opt/tarantool
+    working_dir: /opt/tarantool
+    cap_add:
+      - SYS_ADMIN
+    environment:
+      - TT_INSTANCE_NAME=router-3
+      - TT_CONFIG=/opt/tarantool/config.yml  # Путь к конфигурации
+      - TARANTOOL_LOG_LEVEL=4  # INFO уровень логирования
+
+  tarantool-storage-1-1:
+    image: tarantool/tarantool:latest
+    networks:
+      - tarantool-net
+    ports:
+      - "3304:3301"
+    volumes:
+      - ./data:/var/lib/tarantool  # Данные (WAL, snapshots)
+      - ./instances.enabled/cluster:/opt/tarantool
+    working_dir: /opt/tarantool
+    cap_add:
+      - SYS_ADMIN
+    environment:
+      - TT_INSTANCE_NAME=storage-1-1
+      - TT_CONFIG=/opt/tarantool/config.yml  # Путь к конфигурации
+      - TARANTOOL_LOG_LEVEL=4  # INFO уровень логирования
+  tarantool-storage-1-2:
+    image: tarantool/tarantool:latest
+    networks:
+      - tarantool-net
+    ports:
+      - "3305:3301"
+    volumes:
+      - ./data:/var/lib/tarantool  # Данные (WAL, snapshots)
+      - ./instances.enabled/cluster:/opt/tarantool
+    working_dir: /opt/tarantool
+    cap_add:
+      - SYS_ADMIN
+    environment:
+      - TT_INSTANCE_NAME=storage-1-2
+      - TT_CONFIG=/opt/tarantool/config.yml  # Путь к конфигурации
+      - TARANTOOL_LOG_LEVEL=4  # INFO уровень логирования
+  tarantool-storage-1-3:
+    image: tarantool/tarantool:latest
+    networks:
+      - tarantool-net
+    ports:
+      - "3306:3301"
+    volumes:
+      - ./data:/var/lib/tarantool  # Данные (WAL, snapshots)
+      - ./instances.enabled/cluster:/opt/tarantool
+    working_dir: /opt/tarantool
+    cap_add:
+      - SYS_ADMIN
+    environment:
+      - TT_INSTANCE_NAME=storage-1-3
+      - TT_CONFIG=/opt/tarantool/config.yml  # Путь к конфигурации
+      - TARANTOOL_LOG_LEVEL=4  # INFO уровень логирования
+  tarantool-storage-2-1:
+    image: tarantool/tarantool:latest
+    networks:
+      - tarantool-net
+    ports:
+      - "3307:3301"
+    volumes:
+      - ./data:/var/lib/tarantool  # Данные (WAL, snapshots)
+      - ./instances.enabled/cluster:/opt/tarantool
+    working_dir: /opt/tarantool
+    cap_add:
+      - SYS_ADMIN
+    environment:
+      - TT_INSTANCE_NAME=storage-2-1
+      - TT_CONFIG=/opt/tarantool/config.yml  # Путь к конфигурации
+      - TARANTOOL_LOG_LEVEL=4  # INFO уровень логирования
+  tarantool-storage-2-2:
+    image: tarantool/tarantool:latest
+    networks:
+      - tarantool-net
+    ports:
+      - "3308:3301"
+    volumes:
+      - ./data:/var/lib/tarantool  # Данные (WAL, snapshots)
+      - ./instances.enabled/cluster:/opt/tarantool
+    working_dir: /opt/tarantool
+    cap_add:
+      - SYS_ADMIN
+    environment:
+      - TT_INSTANCE_NAME=storage-2-2
+      - TT_CONFIG=/opt/tarantool/config.yml  # Путь к конфигурации
+      - TARANTOOL_LOG_LEVEL=4  # INFO уровень логирования
+  tarantool-storage-2-3:
+    image: tarantool/tarantool:latest
+    networks:
+      - tarantool-net
+    ports:
+      - "3309:3301"
+    volumes:
+      - ./data:/var/lib/tarantool  # Данные (WAL, snapshots)
+      - ./instances.enabled/cluster:/opt/tarantool
+    working_dir: /opt/tarantool
+    cap_add:
+      - SYS_ADMIN
+    environment:
+      - TT_INSTANCE_NAME=storage-2-3
+      - TT_CONFIG=/opt/tarantool/config.yml  # Путь к конфигурации
+      - TARANTOOL_LOG_LEVEL=4  # INFO уровень логирования
+  tarantool-storage-3-1:
+    image: tarantool/tarantool:latest
+    networks:
+      - tarantool-net
+    ports:
+      - "3310:3301"
+    volumes:
+      - ./data:/var/lib/tarantool  # Данные (WAL, snapshots)
+      - ./instances.enabled/cluster:/opt/tarantool
+    working_dir: /opt/tarantool
+    cap_add:
+      - SYS_ADMIN
+    environment:
+      - TT_INSTANCE_NAME=storage-3-1
+      - TT_CONFIG=/opt/tarantool/config.yml  # Путь к конфигурации
+      - TARANTOOL_LOG_LEVEL=4  # INFO уровень логирования
+  tarantool-storage-3-2:
+    image: tarantool/tarantool:latest
+    networks:
+      - tarantool-net
+    ports:
+      - "3311:3301"
+    volumes:
+      - ./data:/var/lib/tarantool  # Данные (WAL, snapshots)
+      - ./instances.enabled/cluster:/opt/tarantool
+    working_dir: /opt/tarantool
+    cap_add:
+      - SYS_ADMIN
+    environment:
+      - TT_INSTANCE_NAME=storage-3-2
+      - TT_CONFIG=/opt/tarantool/config.yml  # Путь к конфигурации
+      - TARANTOOL_LOG_LEVEL=4  # INFO уровень логирования
+  tarantool-storage-3-3:
+    image: tarantool/tarantool:latest
+    networks:
+      - tarantool-net
+    ports:
+      - "3312:3301"
+    volumes:
+      - ./data:/var/lib/tarantool  # Данные (WAL, snapshots)
+      - ./instances.enabled/cluster:/opt/tarantool
+    working_dir: /opt/tarantool
+    cap_add:
+      - SYS_ADMIN
+    environment:
+      - TT_INSTANCE_NAME=storage-3-3
+      - TT_CONFIG=/opt/tarantool/config.yml  # Путь к конфигурации
+      - TARANTOOL_LOG_LEVEL=4  # INFO уровень логирования
+
+
+networks:
+  tarantool-net:
+    driver: bridge

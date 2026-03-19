@@ -1,0 +1,147 @@
+# yaml-language-server: $schema=https://download.tarantool.org/tarantool/schema/config.schema.json
+
+credentials:
+  users:
+    admin:
+      password: 'secret-cluster-cookie'
+      roles: [super]
+    client:
+      password: 'secret'
+      roles: [super]
+    replicator:
+      password: 'secret'
+      roles: [replication]
+    storage:
+      password: 'secret'
+      roles: [sharding]
+
+iproto:
+  advertise:
+    peer:
+      login: replicator
+    sharding:
+      login: storage
+
+sharding:
+  bucket_count: 1000
+
+groups:
+  routers:
+    roles: [roles.crud-router]
+    app:
+      module: router
+    replication:
+      failover: election
+    sharding:
+      roles: [router]
+    replicasets:
+      router-a:
+        instances:
+          router-1:
+            iproto:
+              listen:
+                - uri: router-1:3301
+              advertise:
+                client: router-1:3301
+          router-2:
+            iproto:
+              listen:
+                - uri: router-2:3301
+              advertise:
+                client: router-2:3301
+          router-3:
+            iproto:
+              listen:
+                - uri: router-3:3301
+              advertise:
+                client: router-3:3301
+  storages:
+    replication:
+      failover: election
+    app:
+      module: storage
+    sharding:
+      roles: [storage]
+    roles:
+      - roles.crud-storage
+    roles_cfg:
+      roles.expirationd: [ ]
+    replicasets:
+      storage-1:
+        replication:
+          peers:
+          - replicator:secret@tarantool-storage-1-1:3301
+          - replicator:secret@tarantool-storage-1-2:3301
+          - replicator:secret@tarantool-storage-1-3:3301
+          failover: election
+        instances:
+          storage-1-1:
+            iproto:
+              listen:
+                - uri: tarantool-storage-1-1:3301
+              advertise:
+                client: tarantool-storage-1-1:3301
+          storage-1-2:
+            iproto:
+              listen:
+                - uri: tarantool-storage-1-2:3301
+              advertise:
+                client: tarantool-storage-1-2:3301
+          storage-1-3:
+            iproto:
+              listen:
+                - uri: tarantool-storage-1-3:3301
+              advertise:
+                client: tarantool-storage-1-3:3301
+      storage-2:
+        replication:
+          peers:
+          - replicator:secret@tarantool-storage-2-1:3301
+          - replicator:secret@tarantool-storage-2-2:3301
+          - replicator:secret@tarantool-storage-2-3:3301
+          failover: election
+        instances:
+          storage-2-1:
+            iproto:
+              listen:
+                - uri: tarantool-storage-2-1:3301
+              advertise:
+                client: tarantool-storage-2-1:3301
+          storage-2-2:
+            iproto:
+              listen:
+                - uri: tarantool-storage-2-2:3301
+              advertise:
+                client: tarantool-storage-2-2:3301
+          storage-2-3:
+            iproto:
+              listen:
+                - uri: tarantool-storage-2-3:3301
+              advertise:
+                client: tarantool-storage-2-3:3301
+      storage-3:
+        replication:
+          peers:
+          - replicator:secret@tarantool-storage-3-1:3301
+          - replicator:secret@tarantool-storage-3-2:3301
+          - replicator:secret@tarantool-storage-3-3:3301
+          failover: election
+        instances:
+          storage-3-1:
+            iproto:
+              listen:
+                - uri: tarantool-storage-3-1:3301
+              advertise:
+                client: tarantool-storage-3-1:3301
+          storage-3-2:
+            iproto:
+              listen:
+                - uri: tarantool-storage-3-2:3301
+              advertise:
+                client: tarantool-storage-3-2:3301
+          storage-3-3:
+            iproto:
+              listen:
+                - uri: tarantool-storage-3-3:3301
+              advertise:
+                client: tarantool-storage-3-3:3301
