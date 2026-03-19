@@ -41,5 +41,7 @@ luac.out
 
 #taratool
 *.rocks
+*.emmyrc.json
+data/*
 
 

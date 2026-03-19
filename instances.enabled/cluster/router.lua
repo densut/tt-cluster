@@ -16,17 +16,18 @@ local function init_router()
 
     log.info('init_router')
     
-    for i = 1, 5 do 
+    for i = 1, 20 do
         local oki, info = pcall(vshard.router.info)
         if oki and info then
             log.info('vshard initialized, status: %s', info.status)
             if info.status == 0 then
                 break
             else
-                local ok, result = pcall(vshard.routerbootstrap)
+                local ok, result = pcall(vshard.router.bootstrap)
                 if not ok then
                     log.error('VShard bootstrap failed: %s', result)
-                else 
+                else
+                    log.info('VShard bootstrap result: %s', result)
                     break
                 end
             end
